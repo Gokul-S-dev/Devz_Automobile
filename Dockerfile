@@ -5,6 +5,8 @@ COPY pom.xml ./
 COPY .mvn/ .mvn/
 COPY mvnw ./
 
+RUN chmod +x mvnw
+
 # Download dependencies first for better layer caching
 RUN ./mvnw -B -DskipTests dependency:go-offline
 

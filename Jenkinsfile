@@ -15,14 +15,14 @@ pipeline {
 
         stage('Build Image') {
             steps {
-                sh 'docker build -t ${IMAGE_NAME} .'
+                sh 'sudo docker build -t ${IMAGE_NAME} .'
             }
         }
 
         stage('Run Container') {
             steps {
-                sh 'docker rm -f ${CONTAINER_NAME} || true'
-                sh 'docker run -d --name ${CONTAINER_NAME} -p 8080:8080 ${IMAGE_NAME}'
+                sh 'sudo docker rm -f ${CONTAINER_NAME} || true'
+                sh 'sudo docker run -d --name ${CONTAINER_NAME} -p 8080:8080 ${IMAGE_NAME}'
             }
         }
     }

@@ -1,22 +1,28 @@
 pipeline {
     agent any
 
+    environment {
+        IMAGE_NAME = 'devz-automobile:latest'
+        CONTAINER_NAME = 'devz-automobile'
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                echo "Working"
+                checkout scm
             }
         }
 
-        stage('Build') {
+        stage('Build Image') {
             steps {
-                echo 'Building Devz Automobile frontend'
-               
+                sh 'docker build -t ${IMAGE_NAME} .'
             }
         }
-        stage('Deploy') {
+
+        stage('Run Container') {
             steps {
-                echo "Deploying...."
+                sh 'docker rm -f ${CONTAINER_NAME} || true'
+                sh 'docker run -d --name ${CONTAINER_NAME} -p 8080:8080 ${IMAGE_NAME}'
             }
         }
     }

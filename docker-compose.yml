@@ -1,0 +1,9 @@
+services:
+  javaapp:
+    build:
+      context: .
+    container_name: java-jenkins-docker
+    image: Devz_Automobile:latest
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
